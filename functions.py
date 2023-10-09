@@ -20,7 +20,9 @@ def fetch_comments(response,data):
         obj=item.get('snippet').get('topLevelComment')
         name=obj.get('snippet').get('authorDisplayName')
         comment=obj.get('snippet').get('textDisplay')
-        data.append((name,comment))
+        # data.append((name,comment))
+        data["Username"].append(name)
+        data["Comment"].append(comment)
     next_page_token=response.get('nextPageToken')
     return (next_page_token)
 
@@ -29,7 +31,7 @@ def get_data(link:str,data:list,pageToken=None)->list:
         videoid=get_video_id(link)
         response=get_page_data(videoid,pageToken)
         next_page_token=fetch_comments(response,data)
-        if(len(data)>1000):
+        if(len(data["Username"])>1000):
             return
         else:
             get_data(link,data,next_page_token)
