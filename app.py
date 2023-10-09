@@ -1,6 +1,6 @@
 import streamlit as st
 from functions import *
-st.title("YouTube comment scrapper")
+st.title("YouTube Comment Scrapper")
 link=st.text_input("paste youtube link here:")
 data={"Username":list(),"Comment":list()}
 def fetch_data(link):
