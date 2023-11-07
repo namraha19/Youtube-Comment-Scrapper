@@ -2,7 +2,7 @@ import requests
 from googleapiclient.discovery import build
 api_key="AIzaSyDxQkZ1ik7V9uMZ4QaH3GQFcnIlySU2BBI"
 youtube=build("youtube",'v3',developerKey=api_key)
-
+visited_pages=list()
 
 def get_video_id(link:str)->str:
     i=link.find("watch?v=")
@@ -28,6 +28,9 @@ def fetch_comments(response,data):
 
 def get_data(link:str,data:list,pageToken=None)->list:
     try:
+        if(pageToken in visited_pages):
+            return 
+        visited_pages.append(pageToken)
         videoid=get_video_id(link)
         response=get_page_data(videoid,pageToken)
         next_page_token=fetch_comments(response,data)
